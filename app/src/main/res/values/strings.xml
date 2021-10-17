@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Save</string>
+    <string name="unsupported_mimetype">Unsupported mimeType</string>
+</resources>
