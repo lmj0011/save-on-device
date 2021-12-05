@@ -4,11 +4,14 @@ adds an option to the Android Sharesheet that allows you to save files to your d
 
 <img src="./.github/readme-images/demo.gif" width="250">
 
-
-
 ## Download
-Get the app from the [Google Play Store](https://play.google.com/store/apps/details?id=name.lmj001.savetodevice)
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/name.lmj001.savetodevice/)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png"
+     alt="Get it on Google Play"
+     height="80">](https://play.google.com/store/apps/details?id=name.lmj001.savetodevice)
 
 ## License
 
