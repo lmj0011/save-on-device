@@ -1,0 +1,1 @@
+<i>Save on Device</i> fügt dem Android Sharesheet eine Option hinzu, mit der Du Dateien auf Deinem Gerät speichern kannst.
