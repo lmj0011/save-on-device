@@ -5,7 +5,7 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Save"
+        android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SaveToDevice">
@@ -16,7 +16,7 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
 
-            <intent-filter android:label="on device">
+            <intent-filter android:label="@string/app_intent_filter_description">
                 <action android:name="android.intent.action.SEND" />
                 <action android:name="android.intent.action.SEND_MULTIPLE" />
                 <category android:name="android.intent.category.DEFAULT" />

@@ -8,10 +8,10 @@ android {
 
     defaultConfig {
         applicationId "name.lmj001.savetodevice"
-        minSdk 28
+        minSdk 23
         targetSdk 30
         versionCode 1
-        versionName "0.1"
+        versionName "0.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
