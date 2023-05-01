@@ -14,6 +14,8 @@ import java.io.FileOutputStream
 lateinit var saveFileResultLauncher: ActivityResultLauncher<Intent>
 lateinit var inputUri: Uri
 lateinit var inputUriList: MutableList<Uri>
+lateinit var inputText: String
+lateinit var inputTextList: MutableList<String>
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +35,24 @@ class MainActivity : AppCompatActivity() {
                             saveFile(it)
 
                             // seeing if there are other files in queue to be saved
-                            val uri = inputUriList.removeFirstOrNull()
+                            if (::inputUriList.isInitialized) {
+                                val uri = inputUriList.removeFirstOrNull()
 
-                            if(uri != null) {
-                                inputUri = uri
+                                if (uri != null) {
+                                    inputUri = uri
 
-                                callSaveFileResultLauncher(inputUri)
-                            } else finish()
+                                    callSaveFileResultLauncher(uri = inputUri)
+                                } else finish()
+
+                            } else {
+                                val text = inputTextList.removeFirstOrNull()
+
+                                if (text != null) {
+                                    inputText = text
+
+                                    callSaveFileResultLauncher(text = text)
+                                } else finish()
+                            }
                         }
                         else -> finish()
                     }
@@ -49,18 +62,35 @@ class MainActivity : AppCompatActivity() {
 
         when (intent?.action) {
             Intent.ACTION_SEND -> {
-                inputUri = intent.extras?.get(Intent.EXTRA_STREAM) as Uri
+                if (intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
+                    inputUri = intent.extras?.get(Intent.EXTRA_STREAM) as Uri
+                    callSaveFileResultLauncher(uri = inputUri)
+                }
+                else {
+                    inputText = intent.extras?.get(Intent.EXTRA_TEXT) as String
+                    callSaveFileResultLauncher(text = inputText)
+                }
 
-                callSaveFileResultLauncher(inputUri)
             }
             Intent.ACTION_SEND_MULTIPLE -> {
-                inputUriList = (intent.extras?.getParcelableArrayList<Uri>(Intent.EXTRA_STREAM) as ArrayList<Uri>).toMutableList()
-                val uri = inputUriList.removeFirstOrNull()
+                if (intent.extras?.containsKey(Intent.EXTRA_STREAM) == true) {
+                    inputUriList = (intent.extras?.getParcelableArrayList<Uri>(Intent.EXTRA_STREAM) as ArrayList<Uri>).toMutableList()
+                    val uri = inputUriList.removeFirstOrNull()
 
-                if (uri != null) {
-                    inputUri = uri
+                    if (uri != null) {
+                        inputUri = uri
 
-                    callSaveFileResultLauncher(inputUri)
+                        callSaveFileResultLauncher(uri = inputUri)
+                    }
+                } else {
+                    inputTextList = (intent.extras?.getStringArrayList(Intent.EXTRA_TEXT))!!.toMutableList()
+                    val text = inputTextList.removeFirstOrNull()
+
+                    if (text != null) {
+                        inputText = text
+
+                        callSaveFileResultLauncher(text = inputText)
+                    }
                 }
             }
         }
@@ -72,16 +102,18 @@ class MainActivity : AppCompatActivity() {
         return !mimeType.isNullOrBlank()
     }
 
-    private fun callSaveFileResultLauncher(uri: Uri) {
-        if(isSupportedMimeType(uri)) {
-            val fromUriFileName = DocumentFile.fromSingleUri(this, uri)!!.name
+    private fun callSaveFileResultLauncher(uri: Uri? = null, text: String? = null) {
+        if (text != null || isSupportedMimeType(uri!!)) {
+            val fromUriFileName =
+                if (uri != null) DocumentFile.fromSingleUri(this, uri)!!.name
+                else ""
             val saveFileIntent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                 // Filter to only show results that can be "opened", such as
                 // a file (as opposed to a list of contacts or timezones).
                 addCategory(Intent.CATEGORY_OPENABLE)
 
                 // Create a file with the requested MIME type.
-                type = contentResolver.getType(inputUri)
+                type = if (uri != null) contentResolver.getType(inputUri) else "text/plain"
                 putExtra(Intent.EXTRA_TITLE, fromUriFileName)
             }
 
@@ -107,13 +139,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveFile(outputUri: Uri) {
-        val inputStream = contentResolver.openInputStream(inputUri)
+        val inputStream =
+            if (::inputUri.isInitialized) contentResolver.openInputStream(inputUri)
+            else null
         contentResolver.openFileDescriptor(outputUri, "w")?.use { p ->
             val outputStream = FileOutputStream(p.fileDescriptor)
-            val buffer = ByteArray(4096)
-            var length: Int
-
             if (inputStream != null) {
+                val buffer = ByteArray(4096)
+                var length: Int
+
                 length = inputStream.read(buffer)
 
                 while (length > 0) {
@@ -122,8 +156,8 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 outputStream.flush() // apparently this does nothing..
-            }
-
+                inputStream.close()
+            } else outputStream.write(inputText.toByteArray(Charsets.UTF_8))
             outputStream.close()
         }
     }
