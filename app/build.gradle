@@ -4,14 +4,14 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 33
 
     defaultConfig {
         applicationId "name.lmj001.savetodevice"
         minSdk 23
-        targetSdk 30
-        versionCode 3
-        versionName "0.2.1"
+        targetSdk 33
+        versionCode 5
+        versionName "0.4.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

@@ -1,8 +1,12 @@
 # <img src="./.github/readme-images/ic_launcher-playstore.png" width="48"> Save On Device
 
-adds an option to the Android Sharesheet that allows you to save files to your device.
+an Android app that allows you to save files on your device from other apps using the share functionality.
 
 <img src="./.github/readme-images/demo.gif" width="250">
+
+## Features
+- Save files from other apps to local storage
+- Save copied text to local storage
 
 ## Download
 
@@ -15,7 +19,7 @@ adds an option to the Android Sharesheet that allows you to save files to your d
 
 ## License
 
-    Copyright 2021 Landan Jackson
+    Copyright 2023 Landan Jackson
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
