@@ -2,4 +2,7 @@
     <string name="app_name">Save</string>
     <string name="app_intent_filter_description">Save on device</string>
     <string name="unsupported_mimetype">Unsupported mimeType</string>
+    <string name="multiSaveInfo">If this is enabled, when you share multiple files to the app, it will bring up a dialog for each file allowing you to rename it and select the folder to save it in. Otherwise, you will simply choose a folder to save the files in, and they will all be saved there automatically.</string>
+    <string name="oldAndroidInfo">Unfortunately, the version of Android on your device does not support the method used to save all files as once. You will be forced to use this mode.</string>
+    <string name="switchText">Save multiple files individually</string>
 </resources>

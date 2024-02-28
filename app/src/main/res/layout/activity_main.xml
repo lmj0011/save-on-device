@@ -1,11 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:visibility="visible"
+android:orientation="vertical">
+
+<LinearLayout
+    android:id="@+id/linear1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="visible"
-    tools:context=".MainActivity"
-    tools:visibility="visible">
+    android:padding="8dp"
+    android:background="#000000"
+    android:orientation="horizontal">
+    <LinearLayout
+        android:id="@+id/linear2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:orientation="vertical">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Switch
+            android:id="@+id/multiSaveSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="8dp"
+            android:text="@string/switchText"
+            android:textColor="#00BCD4"
+            android:textSize="18sp" />
+        <TextView
+            android:id="@+id/multiSaveInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/multiSaveInfo"
+            android:textSize="18sp"
+            android:textColor="#2196F3" />
+        <TextView
+            android:id="@+id/oldAndroidInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/oldAndroidInfo"
+            android:textSize="18sp"
+            android:textColor="#2196F3"
+            android:visibility="gone"/>
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>
